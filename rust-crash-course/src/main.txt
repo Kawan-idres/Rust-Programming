@@ -1,0 +1,111 @@
+#![deny(clippy::all)] //clippy now works in rust file
+
+fn main() {
+    println!("=== RUST VARIABLES TUTORIAL ===\n");
+
+    // 1. IMMUTABLE VARIABLES (default in Rust)
+    // Variables are immutable by default - once assigned, you cannot change them
+    let x: i32 = 5;
+    println!("1. Immutable variable x = {}", x);
+    // x = 6; // This would cause a compile error!
+
+    // 2. MUTABLE VARIABLES
+    // Use 'mut' keyword to make a variable mutable
+    let mut y = 10;
+    println!("2. Mutable variable y = {}", y);
+    y = 15; // This is allowed because y is mutable
+    println!("   After change, y = {}", y);
+
+    // 3. CONSTANTS
+    // Constants are ALWAYS immutable and must have a type annotation
+    // Use UPPERCASE naming convention
+    const MAX_POINTS: u32 = 100_000;
+    println!("3. Constant MAX_POINTS = {}", MAX_POINTS);
+
+    // 4. SHADOWING
+    // You can declare a new variable with the same name
+    let z = 5;
+    println!("4. Shadowing - first z = {}", z);
+    let z = z + 5; // This creates a NEW variable z 
+    println!("   Shadowed z = {}", z);
+    let z = z * 2;
+    println!("   Shadowed again z = {}", z);
+
+    // Shadowing can even change the type
+    let spaces = "   "; // String type
+    let spaces = spaces.len(); // Now it's a number type
+    println!("   Shadowing with type change: spaces = {}", spaces);
+
+    // 5. TYPE ANNOTATIONS
+    // Rust can infer types, but you can be explicit
+    let a: i32 = 42; // i32 is a 32-bit signed integer
+    let b: f64 = 3.14; // f64 is a 64-bit floating point
+    let c: bool = true; // boolean
+    let d: char = 'Z'; // char type (Unicode character)
+    println!("5. Type annotations: a={}, b={}, c={}, d={}", a, b, c, d);
+
+    // 6. SCALAR TYPES
+    println!("\n6. Scalar Types:");
+
+    // Integers (signed and unsigned)
+    let signed: i32 = -100; // can be negative
+    let unsigned: u32 = 100; // only positive
+    println!("   Signed i32: {}, Unsigned u32: {}", signed, unsigned);
+
+    // Integer types: i8, i16, i32, i64, i128, isize (arch dependent)
+    //                u8, u16, u32, u64, u128, usize (arch dependent)
+
+    // Floating point
+    let float1: f32 = 2.5; // 32-bit
+    let float2: f64 = 3.14159265359; // 64-bit (default)
+    println!("   Float f32: {}, Float f64: {}", float1, float2);
+
+    // 7. COMPOUND TYPES
+    println!("\n7. Compound Types:");
+
+    // Tuples - fixed size, different types
+    let tuple: (i32, f64, char) = (500, 6.4, 'A');
+    let (t1, t2, t3) = tuple; // destructuring
+    println!("   Tuple: ({}, {}, {})", t1, t2, t3);
+    println!("   Access by index: {}", tuple.0);
+
+    // Arrays - fixed size, same type
+    let array: [i32; 5] = [1, 2, 3, 4, 5];
+    println!("   Array: {:?}", array);
+    println!("   First element: {}", array[0]);
+
+    // Array with same value
+    let array2 = [3; 5]; // [3, 3, 3, 3, 3]
+    println!("   Array of 5 threes: {:?}", array2);
+
+    // 8. STRING TYPES
+    println!("\n8. String Types:");
+
+    // String slice (immutable, fixed size)
+    let string_slice: &str = "Hello";
+    println!("   String slice: {}", string_slice);
+
+    // String (mutable, growable)
+    let mut string = String::from("Hello");
+    string.push_str(", World!");
+    println!("   String: {}", string);
+
+    // 9. SCOPE AND LIFETIME
+    println!("\n9. Scope and Lifetime:");
+    {
+        let inner = "I only exist in this block";
+        println!("   Inside scope: {}", inner);
+    } // inner is dropped here
+    // println!("{}", inner); // This would be an error!
+
+    // 10. PRINTING AND FORMATTING
+    println!("\n10. Printing Variables:");
+    let name = "Rust";
+    let version = 1.70;
+    println!("   {} version {}", name, version);
+    println!("   Positional: {0} is {1}, {0} is great!", name, version);
+    println!("   Named: {lang} is version {ver}", lang=name, ver=version);
+    println!("   Debug print: {:?}", (name, version));
+
+    println!("\n=== END OF VARIABLES TUTORIAL ===");
+}
