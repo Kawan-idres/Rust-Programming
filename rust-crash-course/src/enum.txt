@@ -1,0 +1,35 @@
+// Enable strict linting - all clippy warnings become compilation errors
+#![deny(clippy::all)]
+#[derive(PartialEq, Debug)]
+
+enum Shapes {
+    Circle { radius: f64, center: (f64, f64) },
+    Rectangle { width: f64, height: f64 },
+}
+fn main() {
+
+    let rectangle=Shapes::Rectangle{ width:10.0, height:5.0};
+    let circle= Shapes::Circle{ radius:7.0, center:(0.0,0.0)};
+
+
+    match rectangle{
+        Shapes::Rectangle { width, height } => {
+            println!("Rectangle - Width: {}, Height: {}", width, height);
+        }
+        _ => { println!("Not a rectangle");}
+    }
+    match circle{
+        Shapes::Circle { radius, center } => {
+            println!("Circle - Radius: {}, Center: ({}, {})", radius, center.0, center.1);
+        }
+        _ => { println!("Not a circle"); }
+    }
+
+    // if let Shapes::Rectangle { width, height } = rectangle {
+    //     println!("Width: {}, Height: {}", width, height);
+    // }
+
+    // if let Shapes::Circle {radius,center}=circle {
+    //     println!("Radius: {}, Center: ({}, {})", radius, center.0, center.1);   
+    // }
+}
