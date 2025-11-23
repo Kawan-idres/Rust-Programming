@@ -1,6 +1,8 @@
 // Enable strict linting - all clippy warnings become compilation errors
 #![deny(clippy::all)]
 
+Exercise 2: Shopping Cart
+
 fn main() {
    let mut cart_total = 0.0;
     
