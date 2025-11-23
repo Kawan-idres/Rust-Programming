@@ -20,6 +20,4 @@ fn main() {
     println!("Tax (8%): ${:.2}", tax);
     println!("Total: ${:.2}", final_total);
 
-
-
 }
