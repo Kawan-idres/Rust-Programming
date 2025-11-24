@@ -1,13 +1,19 @@
 // Enable strict linting - all clippy warnings become compilation errors
 #![deny(clippy::all)]
 fn main() {
-    let s1 = String::from("hello");
+    let mut full_name = String::from("Alice");
     
-    let len = calculate_length(&s1);  // Borrow s1 (don't move it)
+    // Append to string (needs mut)
+    full_name.push_str(" ");
+    full_name.push_str("Johnson");
     
-    println!("String '{}' has length {}", s1, len);  // ✅ s1 still valid!
+    println!("Full name: {}", full_name);
+    
+    // If you want to keep using it, borrow it:
+    display_name(&full_name);
+    display_name(&full_name);  // Can borrow multiple times!
 }
 
-fn calculate_length(s: &String) -> usize {  // &String means "borrow"
-    s.len()
-}  // s goes out of scope, but doesn't drop the data (it doesn't own it)
+fn display_name(name: &String) {
+    println!("👤 {}", name);
+}
