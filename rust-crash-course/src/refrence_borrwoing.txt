@@ -11,3 +11,22 @@ fn main() {
 fn calculate_length(s: &String) -> usize {  // &String means "borrow"
     s.len()
 }  // s goes out of scope, but doesn't drop the data (it doesn't own it)
+
+
+
+///////////// more 
+fn main() {
+    let user_name = String::from("Alice");
+    
+    // BAD: This moves user_name
+    // print_user(user_name);
+    // println!("{}", user_name);  // ERROR!
+    
+    // GOOD: Borrow instead
+    print_user(&user_name);
+    println!("Still have access to: {}", user_name);  // ✅ Works!
+}
+
+fn print_user(name: &String) {
+    println!("User: {}", name);
+}
