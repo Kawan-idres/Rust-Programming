@@ -1,0 +1,150 @@
+// Enable strict linting - all clippy warnings become compilation errors
+#![deny(clippy::all)]
+// 1. Define
+fn main() {
+      let fruits = vec!["apple", "banana", "orange"];
+    
+    // By index (can crash if out of bounds!)
+    let first = fruits[0];
+    println!("First: {}", first);
+    
+    // Safe way with .get() - returns Option
+    let second = fruits.get(100);
+    match second {
+        Some(fruit) => println!("Second: {}", fruit),
+        None => println!("Not found"),
+    }
+    
+    // Out of bounds
+    let maybe = fruits.get(99);
+    println!("Index 99: {:?}", maybe);  // None
+  
+}
+
+
+
+
+
+Common Vector Methods
+fn main() {
+    let mut nums = vec![3, 1, 4, 1, 5, 9];
+    
+    // Length
+    println!("Length: {}", nums.len());
+    
+    // Is empty?
+    println!("Empty: {}", nums.is_empty());
+    
+    // Contains?
+    println!("Has 4: {}", nums.contains(&4));
+    
+    // First and last
+    println!("First: {:?}", nums.first());
+    println!("Last: {:?}", nums.last());
+    
+    // Remove last
+    let last = nums.pop();
+    println!("Popped: {:?}", last);
+    
+    // Remove at index
+    let removed = nums.remove(0);
+    println!("Removed: {}", removed);
+    
+    // Sort
+    nums.sort();
+    println!("Sorted: {:?}", nums);
+    
+    // Reverse
+    nums.reverse();
+    println!("Reversed: {:?}", nums);
+    
+    // Clear all
+    nums.clear();
+    println!("Cleared: {:?}", nums);
+}
+
+
+
+
+
+
+
+
+
+use std::collections::HashMap;
+
+fn main() {
+    let mut scores = HashMap::new();
+    scores.insert(String::from("Alice"), 100);
+    scores.insert(String::from("Bob"), 85);
+    
+    // Get value (returns Option!)
+    let alice_score = scores.get("Alice");
+    
+    match alice_score {
+        Some(score) => println!("Alice: {}", score),
+        None => println!("Alice not found"),
+    }
+    
+    // Or use if let
+    if let Some(score) = scores.get("Bob") {
+        println!("Bob: {}", score);
+    }
+    
+    // Unknown key
+    let unknown = scores.get("Unknown");
+    println!("Unknown: {:?}", unknown);  // None
+}
+
+
+
+
+
+
+
+
+
+
+use std::collections::HashMap;
+
+fn main() {
+    let mut inventory: HashMap<String, u32> = HashMap::new();
+    
+    // Add items
+    add_item(&mut inventory, "Apple", 50);
+    add_item(&mut inventory, "Banana", 30);
+    add_item(&mut inventory, "Orange", 25);
+    
+    show_inventory(&inventory);
+    
+    // Sell some items
+    sell_item(&mut inventory, "Apple", 5);
+    sell_item(&mut inventory, "Banana", 10);
+    
+    show_inventory(&inventory);
+}
+
+fn add_item(inv: &mut HashMap<String, u32>, name: &str, qty: u32) {
+    let count = inv.entry(String::from(name)).or_insert(0);
+    *count += qty;
+    println!("Added {} {}", qty, name);
+}
+
+fn sell_item(inv: &mut HashMap<String, u32>, name: &str, qty: u32) {
+    if let Some(count) = inv.get_mut(name) {
+        if *count >= qty {
+            *count -= qty;
+            println!("Sold {} {}", qty, name);
+        } else {
+            println!("Not enough {}!", name);
+        }
+    }
+}
+
+fn show_inventory(inv: &HashMap<String, u32>) {
+    println!("\n📦 Inventory:");
+    for (item, qty) in inv {
+        println!("  {}: {}", item, qty);
+    }
+    println!();
+}

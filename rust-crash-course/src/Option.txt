@@ -1,0 +1,54 @@
+fn find_user(id: i32) -> Option<String> {
+    if id == 1 {
+        Some(String::from("Alice"))
+    } else if id == 2 {
+        Some(String::from("Bob"))
+    } else {
+        None  // User not found
+    }
+}
+
+fn main() {
+    let user1 = find_user(1);
+    let user2 = find_user(99);
+    
+    match user1 {
+        Some(name) => println!("Found: {}", name),
+        None => println!("User not found"),
+    }
+    
+    match user2 {
+        Some(name) => println!("Found: {}", name),
+        None => println!("User not found"),
+    }
+}
+```
+
+**Output:**
+```
+Found: Alice
+User not found
+
+
+
+
+
+
+
+if let - Simpler Matching
+When you only care about ONE case:
+    
+fn main() {
+    let some_value = Some(42);
+    
+    // Instead of full match...
+    match some_value {
+        Some(n) => println!("Got: {}", n),
+        None => {}  // Do nothing
+    }
+    
+    // Use if let!
+    if let Some(n) = some_value {
+        println!("Got: {}", n);
+    }
+}   
