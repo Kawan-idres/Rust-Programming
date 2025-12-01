@@ -1,26 +1,34 @@
 // Enable strict linting - all clippy warnings become compilation errors
 #![deny(clippy::all)]
+struct User {
+    name: String,
+    age: u32,
+}
+
+fn find_user<'a>(users: &'a Vec<User>, name: &str) -> Option<&'a User> {
+    for user in users {
+        if user.name == name {
+            return Some(user);
+        }
+    }
+    None
+}
+
 fn main() {
-    let mut todos: Vec<String> = Vec::new();
+    let users = vec![
+        User { name: String::from("Alice"), age: 30 },
+        User { name: String::from("Bob"), age: 25 },
+    ];
     
-    // Add todos
-    todos.push(String::from("Learn Rust"));
-    todos.push(String::from("Build a project"));
-    todos.push(String::from("Practice daily"));
-    
-    // Display todos
-    println!("📝 Todo List:");
-    for (i, todo) in todos.iter().enumerate() {
-        println!("  {}. {}", i + 1, todo);
+    // Find existing user
+    match find_user(&users, "Alice") {
+        Some(user) => println!("Found: {} (age {})", user.name, user.age),
+        None => println!("User not found"),
     }
     
-    // Complete a todo (remove it)
-    let completed = todos.remove(0);
-    println!("\n✅ Completed: {}", completed);
-    
-    // Show remaining
-    println!("\n📝 Remaining:");
-    for (i, todo) in todos.iter().enumerate() {
-        println!("  {}. {}", i + 1, todo);
+    // Find non-existing user
+    match find_user(&users, "Charlie") {
+        Some(user) => println!("Found: {}", user.name),
+        None => println!("User not found"),
     }
 }
