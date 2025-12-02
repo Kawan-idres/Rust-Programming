@@ -1,31 +1,20 @@
 // Enable strict linting - all clippy warnings become compilation errors
 #![deny(clippy::all)]
-fn validate_age(input: &str) -> Result<u32, String> {
-    // Parse the string to number
-    let age: u32 = input
-        .trim()
-        .parse()
-        .map_err(|_| String::from("Not a valid number"))?;
-    
-    // Check range
-    if age < 1 {
-        return Err(String::from("Age must be at least 1"));
-    }
-    
-    if age > 150 {
-        return Err(String::from("Age seems too high"));
-    }
-    
-    Ok(age)
+// T must implement Display
+fn print_it<T: std::fmt::Display>(value: T) {
+    println!("Value: {}", value);
+}
+
+// T must implement Clone
+fn duplicate<T: Clone>(value: T) -> (T, T) {
+    (value.clone(), value)
 }
 
 fn main() {
-    let inputs = ["25", "hello", "0", "200", "42"];
+    print_it(42);
+    print_it("hello");
     
-    for input in inputs {
-        match validate_age(input) {
-            Ok(age) => println!("'{}' -> Valid age: {}", input, age),
-            Err(e) => println!("'{}' -> Error: {}", input, e),
-        }
-    }
+    let s = String::from("hello");
+    let (s1, s2) = duplicate(&s);
+    println!("{}, {}, {}", s1, s2,s);
 }

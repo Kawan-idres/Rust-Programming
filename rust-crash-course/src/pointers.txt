@@ -1,0 +1,40 @@
+use std::rc::Rc;
+use std::cell::RefCell;
+
+struct Counter {
+    value: Rc<RefCell<i32>>,
+}
+
+impl Counter {
+    fn new() -> Self {
+        Counter {
+            value: Rc::new(RefCell::new(0)),
+        }
+    }
+    
+    fn increment(&self) {
+        *self.value.borrow_mut() += 1;
+    }
+    
+    fn get(&self) -> i32 {
+        *self.value.borrow()
+    }
+    
+    fn clone_handle(&self) -> Self {
+        Counter {
+            value: Rc::clone(&self.value),
+        }
+    }
+}
+
+fn main() {
+    let counter1 = Counter::new();
+    let counter2 = counter1.clone_handle();
+    let counter3 = counter1.clone_handle();
+    
+    counter1.increment();
+    counter2.increment();
+    counter3.increment();
+    
+    println!("Final count: {}", counter1.get());  // 3
+}
